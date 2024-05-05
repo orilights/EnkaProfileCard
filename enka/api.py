@@ -1,15 +1,12 @@
-import base64
 import json
-import os
 import io
-import time
 
 from loguru import logger
 import requests
 from PIL import Image
 
-from exception import *
-from utils import read_cache, to_base64, write_cache
+from .exception import *
+from .utils import read_cache, to_base64, write_cache
 
 user_agent = 'GameCard/v1-alpha'
 header_webp = 'data:image/webp;base64,'
@@ -66,7 +63,7 @@ def get_character_icon(game, character_id, costume_id=0):
 
 
 def get_genshin(uid):
-    if player_info := read_cache(f'genshin_{uid}'):
+    if player_info := read_cache(f'profile/genshin_{uid}'):
         logger.info(f'[get_info]game:genshin uid:{uid} cache hit')
         return json.loads(player_info)
     api = 'https://enka.network/api/uid/{uid}?info'
@@ -102,7 +99,7 @@ def get_genshin(uid):
             'avatars': data['showAvatarInfoList'],
             'profilePictureId': data['profilePicture']['id'],
         }
-        write_cache(f'genshin_{uid}', json.dumps(player_info), 3600 * 24)
+        write_cache(f'profile/genshin_{uid}', json.dumps(player_info), 3600 * 24)
         logger.debug(
             f'[get_info] game:genshin uid:{uid} player_info:{player_info}')
         return player_info

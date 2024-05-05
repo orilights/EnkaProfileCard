@@ -2,13 +2,14 @@ import os
 
 from loguru import logger
 
-from enka import get_profile_icon, get_character_icon
-from exception import *
-from utils import md5, read_cache, to_base64, get_ts, write_cache,timeit
+from .api import get_profile_icon, get_character_icon
+from .exception import *
+from .utils import md5, read_cache, to_base64, get_ts, write_cache, timeit
 
 default_texts = '0123456789UIDLV成就总数深境螺旋展柜无角色-PoweredbyEnka.Network'
 header_woff2 = 'data:application/font-woff2;base64,'
 header_webp = 'data:image/webp;base64,'
+
 
 @timeit('generate_card')
 def generate_card(game, player_info):
@@ -17,15 +18,17 @@ def generate_card(game, player_info):
     template = open(f'./template/{game}.svg', encoding='utf-8').read()
     game_font = f'./assets/{game}.font.ttf'
     nickname = player_info['nickname']
-    if font := read_cache(f'font_{game}_{md5(nickname)}'):
-        logger.info(f'[generate_card]game:{game} uid:{player_info["uid"]} font cache hit')
+    if font := read_cache(f'font/{game}_{md5(nickname)}'):
+        logger.info(
+            f'[generate_card]game:{game} uid:{player_info["uid"]} font cache hit'
+        )
     else:
         text = default_texts + nickname
         os.system(
             f'pyftsubset {game_font} --text="{text}" --flavor=woff2 --output-file=./tmp_{ts}'
         )
         font = to_base64(f'./tmp_{ts}')
-        write_cache(f'font_{game}_{md5(nickname)}', font, -1)
+        write_cache(f'font/{game}_{md5(nickname)}', font, -1)
         os.remove(f'./tmp_{ts}')
     template = template.replace(
         '{background}', header_webp + to_base64(f'./template/{game}.webp'))

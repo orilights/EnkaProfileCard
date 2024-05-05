@@ -1,6 +1,6 @@
 from fastapi.responses import FileResponse
-from card import generate_card
-from enka import get_genshin
+from enka.card import generate_card
+from enka.api import get_genshin
 from fastapi import FastAPI
 
 support_game = ['genshin']
@@ -11,7 +11,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"name": "GameProfileCard",
+    return {"name": "EnkaProfileCard",
             "support_game": support_game}
     
 @app.get("/{game}/{uid}.png",responses={
