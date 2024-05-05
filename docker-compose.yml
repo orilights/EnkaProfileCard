@@ -1,0 +1,8 @@
+services:
+  card:
+    image: ccr.ccs.tencentyun.com/orilight/game-profile-card
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./cache:/app/cache
+    restart: always

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 630 270">
+    <foreignObject width="315" height="135" transform="scale(2)">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+            <style> .container { position: absolute; color: white; padding: 15px; font-size: 14px;
+                z-index: 1; } .mask { position: absolute; top: 0; left: 0; width: 100%; height:
+                100%; background: rgba(0, 0, 0, 0.4); } body { position: relative; margin: 0;
+                padding: 0; width: 315px; height: 135px; background-color: black; background-size:
+                100%; background-image: url('{background}'); font-family: HYWenHei;text-shadow: 1px
+                1px 3px #000000;} .flex { display: flex; justify-content: flex-start; } .flex-col {
+                display: flex; flex-direction: column; } .gap-5 { gap: 5px; } .gap-10 { gap: 10px; }
+                .justify-between { justify-content: space-between; } .nickname { font-size: 18px; }
+                .info { font-size: 10px; } .block { margin-top: 8px; } .avatar { border-radius:
+                100%; } .character { width: 24px; height: 24px; } @font-face { font-family:
+                HYWenHei; src: url('{font}'); } .poweredby{ position: absolute; bottom: 4px; right:
+                4px; font-size: 8px;color:#d1e1ff; } </style>
+            <div class="mask" />
+            <div class="container">
+                <div class="flex gap-10">
+                    <img class="avatar" src="{avatar}" width="50"
+                        height="50" />
+                    <div>
+                        <div class="nickname">{nickname}</div>
+                        <div class="info">
+                            <div>UID {uid}</div>
+                            <div>LV {level}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block flex info gap-10">
+                    <div>成就总数 {achievement}</div>
+                    <div>深境螺旋 {abyss}</div>
+                </div>
+                <div class="block flex gap-5">
+                    {characters}
+                </div>
+            </div>
+            <div class="poweredby">
+                Powered by Enka.Network
+            </div>
+        </body>
+    </foreignObject>
+</svg>
