@@ -9,6 +9,7 @@ characters = json.load(
 for character_id in characters:
     character_data = characters[character_id]
     get_character_icon('genshin', character_id)
+    get_profile_icon('genshin', f'char{character_id}')
     if costumes := character_data.get('Costumes'):
         for costume_id in costumes:
             get_character_icon('genshin', character_id, costume_id)

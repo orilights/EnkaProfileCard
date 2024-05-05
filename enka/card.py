@@ -16,23 +16,25 @@ def generate_card(game, player_info):
     ts = get_ts()
     logger.info(f'[generate_card]game:{game} uid:{player_info["uid"]}')
     template = open(f'./template/{game}.svg', encoding='utf-8').read()
-    game_font = f'./assets/{game}.font.ttf'
+    card_font = f'./assets/{game}.font.ttf'
     nickname = player_info['nickname']
-    if font := read_cache(f'font/{game}_{md5(nickname)}'):
+    if subset_font := read_cache(f'font/{game}_{md5(nickname)}'):
         logger.info(
             f'[generate_card]game:{game} uid:{player_info["uid"]} font cache hit'
         )
     else:
         text = default_texts + nickname
+        open(f'./tmp_{ts}_text', 'w', encoding='utf-8').write(text)
         os.system(
-            f'pyftsubset {game_font} --text="{text}" --flavor=woff2 --output-file=./tmp_{ts}'
+            f'pyftsubset {card_font} --text-file=./tmp_{ts}_text --flavor=woff2 --output-file=./tmp_{ts}_font'
         )
-        font = to_base64(f'./tmp_{ts}')
-        write_cache(f'font/{game}_{md5(nickname)}', font, -1)
-        os.remove(f'./tmp_{ts}')
+        subset_font = to_base64(f'./tmp_{ts}_font')
+        write_cache(f'font/{game}_{md5(nickname)}', subset_font, -1)
+        os.remove(f'./tmp_{ts}_text')
+        os.remove(f'./tmp_{ts}_font')
     template = template.replace(
         '{background}', header_webp + to_base64(f'./template/{game}.webp'))
-    template = template.replace('{font}', header_woff2 + font)
+    template = template.replace('{font}', header_woff2 + subset_font)
     template = template.replace('{nickname}', player_info['nickname'])
     template = template.replace('{uid}', str(player_info['uid']))
     template = template.replace('{level}', str(player_info['level']))
