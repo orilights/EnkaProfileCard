@@ -6,7 +6,7 @@ from .api import get_profile_icon, get_character_icon
 from .exception import *
 from .utils import md5, read_cache, to_base64, get_ts, write_cache, timeit
 
-default_texts = '0123456789UIDLV成就总数深境螺旋展柜无角色-PoweredbyEnka.Network'
+default_texts = '0123456789UIDLV成就总数深境螺旋展柜无角色未知-PoweredbyEnka.Network'
 header_woff2 = 'data:application/font-woff2;base64,'
 header_webp = 'data:image/webp;base64,'
 

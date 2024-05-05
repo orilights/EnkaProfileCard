@@ -12,12 +12,12 @@ user_agent = 'GameCard/v1-alpha'
 header_webp = 'data:image/webp;base64,'
 enka_ui_base = 'https://enka.network/ui/'
 
-profile_size = 128
-character_size = 64
 
-
-def get_profile_icon(game, icon_id):
-    if cache := read_cache(f'image/profile_{game}_{icon_id}'):
+def get_profile_icon(game, icon_id, size=128):
+    if isinstance(icon_id, str) and icon_id.startswith('char'):
+        return get_character_icon(game, icon_id[4:], size=size)
+    cache_key = f'image/profile_{game}_{icon_id}_{size}'
+    if cache := read_cache(cache_key):
         return cache
     avatar_dict = json.load(
         open(f'./assets/{game}.pfps.json', 'r', encoding='utf-8'))
@@ -26,37 +26,38 @@ def get_profile_icon(game, icon_id):
         url = enka_ui_base + filename
         r = requests.get(url, headers={'User-Agent': user_agent})
         i = Image.open(io.BytesIO(r.content))
-        i = i.resize((profile_size, profile_size))
+        i = i.resize((size, size))
         image_data = io.BytesIO()
         i.save(image_data, format='webp')
         image_data = header_webp + to_base64(image_data.getvalue())
-        write_cache(f'image/profile_{game}_{icon_id}', image_data, -1)
+        write_cache(cache_key, image_data, -1)
         return image_data
     else:
         return None
 
 
-def get_character_icon(game, character_id, costume_id=0):
-    if cache := read_cache(
-            f'image/character_{game}_{character_id}_{costume_id}'):
+def get_character_icon(game, character_id, costume_id=0, size=64):
+    cache_key = f'image/character_{game}_{character_id}_{costume_id}_{size}'
+    if cache := read_cache(cache_key):
         return cache
     charactor_dict = json.load(
         open(f'./assets/{game}.characters.json', 'r', encoding='utf-8'))
     if char_data := charactor_dict.get(str(character_id), None):
         if costume_id:
             filename = char_data['Costumes'][str(
-                costume_id)]['sideIconName'].replace('Side_', '') + '.png'
+                costume_id)]['sideIconName'].replace('Side_', '') 
         else:
-            filename = char_data['SideIconName'].replace('Side_', '') + '.png'
-        url = enka_ui_base + filename
+            filename = char_data['SideIconName'].replace('Side_', '')
+        if size == 128:
+            filename = filename + '_Circle'
+        url = enka_ui_base + filename + '.png'
         r = requests.get(url, headers={'User-Agent': user_agent})
         i = Image.open(io.BytesIO(r.content))
-        i = i.resize((character_size, character_size))
+        i = i.resize((size, size))
         image_data = io.BytesIO()
         i.save(image_data, format='webp')
         image_data = header_webp + to_base64(image_data.getvalue())
-        write_cache(f'image/character_{game}_{character_id}_{costume_id}',
-                    image_data, -1)
+        write_cache(cache_key, image_data, -1)
         return image_data
     else:
         return None
@@ -89,17 +90,30 @@ def get_genshin(uid):
             else:
                 raise ServerError('Unknown error')
         data = r.json()['playerInfo']
+        if data.get('towerFloorIndex', None) is None:
+            abyss = '未知'
+        else:
+            abyss = f'{data["towerFloorIndex"]}-{data["towerLevelIndex"]}'
+        if profilePictureId := data['profilePicture'].get('id', None):
+            pass
+        else:
+            logger.warning(f'[get_info]game:genshin uid:{uid} no profilePictureId, use avatarId instead')
+            if avatarId := data['profilePicture'].get('avatarId', None):
+                profilePictureId = f'char{avatarId}'
+            else:
+                profilePictureId = 1
         player_info = {
             'uid': uid,
-            'nickname': data['nickname'],
+            'nickname': data.get('nickname', '未知'),
             'level': data['level'],
-            'worldLevel': data['worldLevel'],
-            'achievement': data['finishAchievementNum'],
-            'abyss': f'{data["towerFloorIndex"]}-{data["towerLevelIndex"]}',
-            'avatars': data['showAvatarInfoList'],
-            'profilePictureId': data['profilePicture']['id'],
+            'worldLevel': data.get('worldLevel', '未知'),
+            'achievement': data.get('finishAchievementNum', '未知'),
+            'abyss': abyss,
+            'avatars': data.get('showAvatarInfoList', []),
+            'profilePictureId': profilePictureId,
         }
-        write_cache(f'profile/genshin_{uid}', json.dumps(player_info), 3600 * 24)
+        write_cache(f'profile/genshin_{uid}', json.dumps(player_info),
+                    3600 * 24)
         logger.debug(
             f'[get_info] game:genshin uid:{uid} player_info:{player_info}')
         return player_info
