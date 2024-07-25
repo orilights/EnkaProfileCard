@@ -1563,7 +1563,15 @@
         "NameTextMapHash": 1456643042,
         "SideIconName": "UI_AvatarIcon_Side_Momoka",
         "QualityType": "QUALITY_PURPLE",
-        "WeaponType": "WEAPON_SWORD_ONE_HAND"
+        "WeaponType": "WEAPON_SWORD_ONE_HAND",
+        "Costumes": {
+            "206101": {
+                "sideIconName": "UI_AvatarIcon_Side_MomokaCostumeErrantry",
+                "icon": "UI_AvatarIcon_MomokaCostumeErrantry",
+                "art": "UI_Costume_MomokaCostumeErrantry",
+                "avatarId": 10000061
+            }
+        }
     },
     "10000062": {
         "Element": "Ice",
@@ -1841,7 +1849,15 @@
         "NameTextMapHash": 3850149970,
         "SideIconName": "UI_AvatarIcon_Side_Nilou",
         "QualityType": "QUALITY_ORANGE",
-        "WeaponType": "WEAPON_SWORD_ONE_HAND"
+        "WeaponType": "WEAPON_SWORD_ONE_HAND",
+        "Costumes": {
+            "207001": {
+                "sideIconName": "UI_AvatarIcon_Side_NilouCostumeFairy",
+                "icon": "UI_AvatarIcon_NilouCostumeFairy",
+                "art": "UI_Costume_NilouCostumeFairy",
+                "avatarId": 10000070
+            }
+        }
     },
     "10000071": {
         "Element": "Electric",
@@ -2563,6 +2579,36 @@
         "QualityType": "QUALITY_ORANGE",
         "WeaponType": "WEAPON_SWORD_ONE_HAND"
     },
+    "10000095": {
+        "Element": "Water",
+        "Consts": [
+            "UI_Talent_S_Sigewinne_01",
+            "UI_Talent_S_Sigewinne_02",
+            "UI_Talent_U_Sigewinne_01",
+            "UI_Talent_S_Sigewinne_03",
+            "UI_Talent_U_Sigewinne_02",
+            "UI_Talent_S_Sigewinne_04"
+        ],
+        "SkillOrder": [
+            10951,
+            10952,
+            10955
+        ],
+        "Skills": {
+            "10951": "Skill_A_02",
+            "10952": "Skill_S_Sigewinne_01",
+            "10955": "Skill_E_Sigewinne_01"
+        },
+        "ProudMap": {
+            "10951": 9531,
+            "10952": 9532,
+            "10955": 9539
+        },
+        "NameTextMapHash": 781488962,
+        "SideIconName": "UI_AvatarIcon_Side_Sigewinne",
+        "QualityType": "QUALITY_ORANGE",
+        "WeaponType": "WEAPON_BOW"
+    },
     "10000096": {
         "Element": "Fire",
         "Consts": [
@@ -2590,6 +2636,96 @@
         },
         "NameTextMapHash": 167199474,
         "SideIconName": "UI_AvatarIcon_Side_Arlecchino",
+        "QualityType": "QUALITY_ORANGE",
+        "WeaponType": "WEAPON_POLE"
+    },
+    "10000097": {
+        "Element": "Electric",
+        "Consts": [
+            "UI_Talent_S_Sethos_01",
+            "UI_Talent_S_Sethos_02",
+            "UI_Talent_U_Sethos_01",
+            "UI_Talent_S_Sethos_03",
+            "UI_Talent_U_Sethos_02",
+            "UI_Talent_S_Sethos_04"
+        ],
+        "SkillOrder": [
+            10971,
+            10972,
+            10975
+        ],
+        "Skills": {
+            "10971": "Skill_A_02",
+            "10972": "Skill_S_Sethos_01",
+            "10975": "Skill_E_Sethos_01"
+        },
+        "ProudMap": {
+            "10971": 9731,
+            "10972": 9732,
+            "10975": 9739
+        },
+        "NameTextMapHash": 1431322346,
+        "SideIconName": "UI_AvatarIcon_Side_Sethos",
+        "QualityType": "QUALITY_PURPLE",
+        "WeaponType": "WEAPON_BOW"
+    },
+    "10000098": {
+        "Element": "Electric",
+        "Consts": [
+            "UI_Talent_S_Clorinde_01",
+            "UI_Talent_S_Clorinde_02",
+            "UI_Talent_U_Clorinde_02",
+            "UI_Talent_S_Clorinde_03",
+            "UI_Talent_U_Clorinde_01",
+            "UI_Talent_S_Clorinde_04"
+        ],
+        "SkillOrder": [
+            10981,
+            10982,
+            10985
+        ],
+        "Skills": {
+            "10981": "Skill_A_01",
+            "10982": "Skill_S_Clorinde_01",
+            "10985": "Skill_E_Clorinde_01"
+        },
+        "ProudMap": {
+            "10981": 9831,
+            "10982": 9832,
+            "10985": 9839
+        },
+        "NameTextMapHash": 2745369298,
+        "SideIconName": "UI_AvatarIcon_Side_Clorinde",
+        "QualityType": "QUALITY_ORANGE",
+        "WeaponType": "WEAPON_SWORD_ONE_HAND"
+    },
+    "10000099": {
+        "Element": "Grass",
+        "Consts": [
+            "UI_Talent_S_Emilie_01",
+            "UI_Talent_S_Emilie_02",
+            "UI_Talent_U_Emilie_01",
+            "UI_Talent_S_Emilie_03",
+            "UI_Talent_U_Emilie_02",
+            "UI_Talent_S_Emilie_04"
+        ],
+        "SkillOrder": [
+            10991,
+            10992,
+            10995
+        ],
+        "Skills": {
+            "10991": "Skill_A_03",
+            "10992": "Skill_S_Emilie_01",
+            "10995": "Skill_E_Emilie_01"
+        },
+        "ProudMap": {
+            "10991": 9931,
+            "10992": 9932,
+            "10995": 9939
+        },
+        "NameTextMapHash": 1705786122,
+        "SideIconName": "UI_AvatarIcon_Side_Emilie",
         "QualityType": "QUALITY_ORANGE",
         "WeaponType": "WEAPON_POLE"
     },

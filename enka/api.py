@@ -8,7 +8,7 @@ from PIL import Image
 from .exception import *
 from .utils import read_cache, to_base64, write_cache
 
-user_agent = 'GameCard/v1-alpha'
+user_agent = 'EnkaProfileCard/1.0'
 header_webp = 'data:image/webp;base64,'
 enka_ui_base = 'https://enka.network/ui/'
 
@@ -119,3 +119,17 @@ def get_genshin(uid):
         return player_info
     except Exception as e:
         raise NetworkError(e)
+
+def get_genshin_characters():
+    r = requests.get('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/characters.json')
+    if r.ok:
+        return r.json()
+    else:
+        return None
+    
+def get_genshin_pfps():
+    r = requests.get('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/pfps.json')
+    if r.ok:
+        return r.json()
+    else:
+        return None
